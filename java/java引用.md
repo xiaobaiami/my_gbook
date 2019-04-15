@@ -1,4 +1,4 @@
-java引用分为四种: 强引用, 软引用, 弱引用, 虚引用.</br>
+java引用分为四种: 强引用, 软引用, 弱引用, 虚引用.
 ## 强引用
 ## 软引用
 
@@ -24,7 +24,7 @@ public class PhantomReference<T> extends Reference<T> {
     
     /**
      * PhantomReference 的构造方法, 两个参数, 一个是传入的虚拟用对象,
-     * 第二个参数是一个队列, 虚引用会被注册到这个队列中.
+     * 第二个参数是一个队列, 当虚引用被GC时会被放入到这个队列中.
      */
     public PhantomReference(T referent, ReferenceQueue<? super T> q) {
         super(referent, q);
@@ -79,7 +79,7 @@ public abstract class Reference<T> {
         Cleaner c;
         c = r instanceof Cleaner ? (Cleaner) r : null;
         if (c != null) {
-            c.clean(); // 调用cleaner对象的clean() 方法清理
+            c.clean(); // 从队列中遍历元素, 判断是否是cleaner对象, 如果是则调用cleaner对象的clean() 方法清理
             return true;
         }
     }
